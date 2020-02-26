@@ -28,7 +28,7 @@ def get_hashed(word):
 
     for i in word:
         if i == " ":
-            hashed += "   "
+            hashed += "  "
         else:
             hashed += "_ "
     return hashed
@@ -50,7 +50,22 @@ def uncover(hashed_password, password, letter):
     Returns:
     str: The hashed password with uncovered letter
     '''
-    pass
+    uncover = ""
+    ii = -2
+    for i in password:
+        ii += 2
+        if i == letter:
+            uncover += letter + " "
+        elif hashed_password[ii] != "_":
+            uncover += hashed_password[ii] + " "
+        else:
+            uncover += "_ "
+    return uncover
+
+'''
+test for uncover
+print(uncover("B u _ _ _ _ _ _ ", "Budapest", "e"))
+'''
 
 
 def update(used_letters, letter):
