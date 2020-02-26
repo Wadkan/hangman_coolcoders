@@ -1,10 +1,13 @@
 import random
 
+
+
+
 # if used_letters does not exist, and runs on an error, the program declarates it.
-try:
-    test = used_letters
-except NameError:
-    used_letters = []
+# try:
+#     test = used_letters
+# except NameError:
+#     used_letters = []
 
 
 def pick_capital():
@@ -183,23 +186,34 @@ def get_input():
 # print(get_input())
 
 
+lives = 6
+password = pick_capital()
+hashed_password = get_hashed(password)
+used_letters = ""
+
 def main():
-    pass
+    global lives
+    global password
+    global hashed_password
+    global used_letters
+    
 
-    # used_letters.append(update())
-    hashed = ""
+    while is_win or is_loose:
+        # if to check whether are empty
+        print(hashed_password)
+        print(used_letters)
+        letter = get_input()
 
+        used_letters = used_letters + (uncover(hashed_password, password, letter))
 
-    for i in word:
-        if i == " ":
-            hashed += "  "
-        else:
-            hashed += "_ "
-    return hashed
+        if uncover(hashed_password, password, letter) == "":
+            update(used_letters, letter)
 
-'''
-test for get hashed
+    if is_win:
+        print("You are the winner!")
+    elif is_loose:
+        print("You loose!")
+
 
 if __name__ == '__main__':
     main()
-'''
