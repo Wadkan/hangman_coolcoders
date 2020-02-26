@@ -217,7 +217,7 @@ def main():
     password = pick_capital()
     hashed_password = get_hashed(password)
 
-    print("ps " + password)
+    print("ps " + password) # this is the password to chet and test :)
 
     while run == "yes":
         print("PASSWORD:     " + hashed_password + " LIVES: " + str(lives) + "  USED LETTERS: " + used_letters)
@@ -227,12 +227,26 @@ def main():
         used_letters += update(used_letters, letter)
 
         if is_win(hashed_password, password) == True:
-            print("You are the winner!")
+            width = int((26 - len(hashed_password)) // 2)
+            print(26 * "-" + "\n----You are the winner!---\n" + 26 * "-")
+            print(width * "-" + hashed_password.upper() + width * "-" + "\n--------------------------")
             run = "no"
         elif is_loose() == True:
             run = "no"
-            print("You loose!")
+            width = int(26 - len(password)) // 2
+            print(26 * "-" + "\n" + "------> You loose! <------\n------ The word was: -----")
+            print(width * "-" + password.upper() + width * "-" + "\n" + 26 * "-")
 
+    if "y" == input(26 * "-" + "\n-> Wanna another game? <-\n" + 26 *"-" + "\ny / n: "):
+        main()
+    else:
+        print(60 * "-" + "\n--- Thank you for choosing Coolcoder's original game! :) ---\n" + 60 * "-")
+
+
+# want you another game?
+# more capitals
+# welcome screen
+# screenplay
 
 if __name__ == '__main__':
     main()
