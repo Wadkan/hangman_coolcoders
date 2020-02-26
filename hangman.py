@@ -52,16 +52,22 @@ def uncover(hashed_password, password, letter):
     str: The hashed password with uncovered letter
     '''
 
+    global lives
+    liveplus = 0
     uncover_temp = ""
     ii = -2
     for i in password:
         ii += 2
         if i == letter:
             uncover_temp += letter + " "
+            liveplus = 1  # if is 1 will compensate updates decrease
         elif hashed_password[ii] != "_":
             uncover_temp += hashed_password[ii] + " "
         else:
             uncover_temp += "_ "
+    if liveplus == 1:
+
+        lives += 1   # just to compensate updates decrease
     return uncover_temp
 
 
@@ -71,7 +77,7 @@ def uncover(hashed_password, password, letter):
 
 
 def update(used_letters, letter):
-
+    global lives
     now_used = ""
 
     for i in password:
@@ -87,10 +93,12 @@ def update(used_letters, letter):
                 now_used = letter
             else:
                 print("              !!! YOU'VE ALREADY USED THIS LETTER !!!")
+                lives -= 1  # just compensate uncover increase
                 now_used = ""
                 break
 
     if now_used != "":
+        lives -= 1   # lose one live
         return now_used + " "
     else:
         return ""
@@ -132,10 +140,16 @@ def is_win(hashed_password, password):
     bool:
     '''
 
+    win = "yes"
+
     for i in hashed_password:
         if i == "_":
-            return False
-    return True
+            win = "no"
+
+    if win == "yes":
+        return True
+    else:
+        return False
 
 # test for is_win function
 """ password = "Budapest"
@@ -185,10 +199,6 @@ def get_input():
 # test for get_input
 # print(get_input())
 
-def decrease_lives():
-    global lives
-    lives -= 1
-
 
 lives = 6
 password = ""
@@ -210,7 +220,7 @@ def main():
     print("ps " + password)
 
     while run == "yes":
-        print("PASSWORD:     " + hashed_password + "  USED LETTERS: " + used_letters + "   LIVES: " + str(lives))
+        print("PASSWORD:     " + hashed_password + " LIVES: " + str(lives) + "  USED LETTERS: " + used_letters)
         letter = str(get_input())
 
         hashed_password = uncover(hashed_password, password, letter)
