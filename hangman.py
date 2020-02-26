@@ -195,29 +195,33 @@ password = ""
 hashed_password = ""
 used_letters = ""
 
+
 def main():
     global lives
     global password
     global hashed_password
     global used_letters
 
+    run = "yes"
     lives = 6
     password = pick_capital()
     hashed_password = get_hashed(password)
 
     print("ps " + password)
 
-    while is_win or is_loose:
+    while run == "yes":
         print("PASSWORD:     " + hashed_password + "  USED LETTERS: " + used_letters + "   LIVES: " + str(lives))
         letter = str(get_input())
 
         hashed_password = uncover(hashed_password, password, letter)
         used_letters += update(used_letters, letter)
 
-    if is_win:
-        print("You are the winner!")
-    elif is_loose:
-        print("You loose!")
+        if is_win(hashed_password, password) == True:
+            print("You are the winner!")
+            run = "no"
+        elif is_loose() == True:
+            run = "no"
+            print("You loose!")
 
 
 if __name__ == '__main__':
