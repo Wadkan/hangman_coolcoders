@@ -1,5 +1,7 @@
 import random
 
+
+
 # if used_letters does not exist, and runs on an error, the program declarates it.
 # try:
 #     test = used_letters
@@ -92,7 +94,7 @@ def update(used_letters, letter):
             if j != letter:
                 now_used = letter
             else:
-                print("              !!! YOU'VE ALREADY USED THIS LETTER !!!")
+                print(29 * " " + "!!! YOU'VE ALREADY USED THIS LETTER !!!")
                 lives -= 1  # just compensate uncover increase
                 now_used = ""
                 break
@@ -194,7 +196,7 @@ def get_input():
     for check in right_characters:
         if check == guess:
             return check
-    print("              !!! WRONG CHAR! USE ONLY ONE OR MORE LETTER(s) !!!")
+    print(29 * " " + "!!! WRONG CHAR! USE ONLY ONE OR MORE LETTER(s) !!!")
 
 # test for get_input
 # print(get_input())
@@ -212,15 +214,34 @@ def main():
     global hashed_password
     global used_letters
 
+    used_letters = ""
+
     run = "yes"
     lives = 6
     password = pick_capital()
     hashed_password = get_hashed(password)
+    letter = ""
+    correct = 0
 
-    print("ps " + password) # this is the password to chet and test :)
+    # print("ps " + password) # this is the password to chet and test :)
 
     while run == "yes":
-        print("PASSWORD:     " + hashed_password + " LIVES: " + str(lives) + "  USED LETTERS: " + used_letters)
+        """
+        if correct == 0:
+            was_wrong = " was wrong."
+        else:
+            was_wrong = " was correct!"
+        """
+        # here: put the DRAWING -> drawing(lives, hashed_password, used_letters)
+
+        print("     ___")
+        print("    /   |" + "   PASSWORD:      " + hashed_password)
+        print("   |    O" + "   USED LETTERS:  " + used_letters)
+        print("   |   /|\  " + letter + "")  # + was_wrong
+        print("   |   / \ " + "    LIVES: " + str(lives))
+        print("___|___")
+
+        # print("PASSWORD:     " + hashed_password + " LIVES: " + str(lives) + "  USED LETTERS: " + used_letters)
         letter = str(get_input())
 
         hashed_password = uncover(hashed_password, password, letter)
@@ -242,8 +263,6 @@ def main():
     else:
         print(60 * "-" + "\n--- Thank you for choosing Coolcoder's original game! :) ---\n" + 60 * "-")
 
-
-# want you another game?
 # more capitals
 # welcome screen
 # screenplay
