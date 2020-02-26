@@ -23,9 +23,20 @@ def get_hashed(word):
 
     Returns:
     str: The hashed password
-    '''
-    pass
+   '''
+    hashed = ""
 
+    for i in word:
+        if i == " ":
+            hashed += "   "
+        else:
+            hashed += "_ "
+    return hashed
+
+'''
+test for get hashed
+print(get_hashed("Budapest City"))
+'''
 
 def uncover(hashed_password, password, letter):
     '''
