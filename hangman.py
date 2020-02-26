@@ -1,8 +1,5 @@
 import random
 
-
-
-
 # if used_letters does not exist, and runs on an error, the program declarates it.
 # try:
 #     test = used_letters
@@ -54,6 +51,7 @@ def uncover(hashed_password, password, letter):
     Returns:
     str: The hashed password with uncovered letter
     '''
+
     uncover_temp = ""
     ii = -2
     for i in password:
@@ -78,7 +76,7 @@ def update(used_letters, letter):
 
     for i in password:
         if i == letter:
-            now_used = ""
+            now_used = letter
             break
         else:
             now_used = letter
@@ -88,7 +86,7 @@ def update(used_letters, letter):
             if j != letter:
                 now_used = letter
             else:
-                print("You've already used this letter.")
+                print("              !!! YOU'VE ALREADY USED THIS LETTER !!!")
                 now_used = ""
                 break
 
@@ -106,8 +104,6 @@ test for update correction
 password = "Budapest"
 print(update("abc", "g"))
 """
-
-
 
 """
 password = "BUDAPEST"
@@ -136,14 +132,17 @@ def is_win(hashed_password, password):
     bool:
     '''
 
-    return hashed_password == password
+    for i in hashed_password:
+        if i == "_":
+            return False
+    return True
 
 # test for is_win function
 """ password = "Budapest"
 print(is_win("B__", "Budapest"))
 """
 
-def is_loose(life_points):
+def is_loose():
     '''
     Checks if life points is equal 0
 
@@ -153,7 +152,8 @@ def is_loose(life_points):
     Returns:
     bool: True if life point is equal 0, False otherwise
     '''
-    return life_points == 0
+    global lives
+    return lives == 0
 
 """
 #test for is_loose
@@ -173,22 +173,26 @@ def get_input():
     str: The validated input
     '''
 
-    guess = input("Try to guess the word! Only one letter, or a whole word.\n")
+    guess = input("Try to guess the word! -> ")
     guess = guess.lower()
     right_characters = "qwertzuioplkjhgfdsayxcvbnm"
+
     for check in right_characters:
         if check == guess:
-            return True
-    print("Wrong. Use only one or more letter(s) Numbers and special chars are prohibited.")
-    return False
+            return check
+    print("              !!! WRONG CHAR! USE ONLY ONE OR MORE LETTER(s) !!!")
 
 # test for get_input
 # print(get_input())
 
+def decrease_lives():
+    global lives
+    lives -= 1
+
 
 lives = 6
-password = pick_capital()
-hashed_password = get_hashed(password)
+password = ""
+hashed_password = ""
 used_letters = ""
 
 def main():
@@ -196,18 +200,19 @@ def main():
     global password
     global hashed_password
     global used_letters
-    
+
+    lives = 6
+    password = pick_capital()
+    hashed_password = get_hashed(password)
+
+    print("ps " + password)
 
     while is_win or is_loose:
-        # if to check whether are empty
-        print(hashed_password)
-        print(used_letters)
-        letter = get_input()
+        print("PASSWORD:     " + hashed_password + "  USED LETTERS: " + used_letters + "   LIVES: " + str(lives))
+        letter = str(get_input())
 
-        used_letters = used_letters + (uncover(hashed_password, password, letter))
-
-        if uncover(hashed_password, password, letter) == "":
-            update(used_letters, letter)
+        hashed_password = uncover(hashed_password, password, letter)
+        used_letters += update(used_letters, letter)
 
     if is_win:
         print("You are the winner!")
