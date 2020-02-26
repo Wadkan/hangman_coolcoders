@@ -55,6 +55,8 @@ def uncover(hashed_password, password, letter):
     '''
 
     global lives
+    global correct
+
     liveplus = 0
     uncover_temp = ""
     ii = -2
@@ -68,8 +70,9 @@ def uncover(hashed_password, password, letter):
         else:
             uncover_temp += "_ "
     if liveplus == 1:
-
         lives += 1   # just to compensate updates decrease
+        correct = 1
+
     return uncover_temp
 
 
@@ -80,14 +83,17 @@ def uncover(hashed_password, password, letter):
 
 def update(used_letters, letter):
     global lives
+    global correct
     now_used = ""
 
     for i in password:
         if i == letter:
             now_used = letter
+            correct = 1
             break
         else:
             now_used = letter
+            correct = 0
 
     if now_used != "":
         for j in used_letters:
@@ -97,6 +103,7 @@ def update(used_letters, letter):
                 print(29 * " " + "!!! YOU'VE ALREADY USED THIS LETTER !!!")
                 lives -= 1  # just compensate uncover increase
                 now_used = ""
+                correct = 0
                 break
 
     if now_used != "":
@@ -206,13 +213,14 @@ lives = 6
 password = ""
 hashed_password = ""
 used_letters = ""
-
+correct = 0
 
 def main():
     global lives
     global password
     global hashed_password
     global used_letters
+    global correct
 
     used_letters = ""
 
@@ -221,27 +229,28 @@ def main():
     password = pick_capital()
     hashed_password = get_hashed(password)
     letter = ""
+
     correct = 0
+    was_wrong = ""
 
     # print("ps " + password) # this is the password to chet and test :)
 
     while run == "yes":
-        """
         if correct == 0:
             was_wrong = " was wrong."
         else:
             was_wrong = " was correct!"
-        """
+
         # here: put the DRAWING -> drawing(lives, hashed_password, used_letters)
 
         print("     ___")
         print("    /   |" + "   PASSWORD:      " + hashed_password)
         print("   |    O" + "   USED LETTERS:  " + used_letters)
-        print("   |   /|\  " + letter + "")  # + was_wrong
+        print("   |   /|\  " + letter + was_wrong)
         print("   |   / \ " + "    LIVES: " + str(lives))
         print("___|___")
 
-        # print("PASSWORD:     " + hashed_password + " LIVES: " + str(lives) + "  USED LETTERS: " + used_letters)
+        # old print("PASSWORD:     " + hashed_password + " LIVES: " + str(lives) + "  USED LETTERS: " + used_letters)
         letter = str(get_input())
 
         hashed_password = uncover(hashed_password, password, letter)
