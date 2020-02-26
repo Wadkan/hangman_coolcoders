@@ -10,7 +10,9 @@ except NameError:
 def pick_capital():
     capitals = ["BUDAPEST", "LONDON", "PARIS", "BERLIN", "ROME", "PRAGUE", "MADRID", "LISBON"]
     random_capital = random.choice(capitals)
-    return random_capital
+    return random_capital.lower()
+
+print(pick_capital())
 
 
 def get_hashed(word):
@@ -50,22 +52,22 @@ def uncover(hashed_password, password, letter):
     Returns:
     str: The hashed password with uncovered letter
     '''
-    uncover = ""
+    uncover_temp = ""
     ii = -2
     for i in password:
         ii += 2
         if i == letter:
-            uncover += letter + " "
+            uncover_temp += letter + " "
         elif hashed_password[ii] != "_":
-            uncover += hashed_password[ii] + " "
+            uncover_temp += hashed_password[ii] + " "
         else:
-            uncover += "_ "
-    return uncover
+            uncover_temp += "_ "
+    return uncover_temp
 
-'''
-test for uncover
-print(uncover("B u _ _ _ _ _ _ ", "Budapest", "e"))
-'''
+
+# test for uncover
+# print(uncover("B u _ _ _ e _ _ ", "Budapest", "t"))
+
 
 
 def update(used_letters, letter):
@@ -81,9 +83,9 @@ def update(used_letters, letter):
     '''
 
 
-    for i in password.upper():
-        now_used = letter.upper()
-        if i != letter.upper():
+    for i in password:
+        now_used = letter
+        if i != letter:
             pass
         else:
             now_used = ""
@@ -122,7 +124,7 @@ def is_win(hashed_password, password):
     bool:
     '''
 
-    return hashed_password.upper() == password.upper()
+    return hashed_password == password
 
 # test for is_win function
 """ password = "Budapest"
@@ -160,6 +162,7 @@ def get_input():
     '''
 
     guess = input("Try to guess the word! Only one letter, or a whole word.\n")
+    guess = guess.lower()
     right_characters = "qwertzuioplkjhgfdsayxcvbnm"
     for check in right_characters:
         if check == guess:
