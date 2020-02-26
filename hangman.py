@@ -12,7 +12,6 @@ def pick_capital():
     random_capital = random.choice(capitals)
     return random_capital.lower()
 
-print(pick_capital())
 
 
 def get_hashed(word):
@@ -71,31 +70,41 @@ def uncover(hashed_password, password, letter):
 
 
 def update(used_letters, letter):
-    '''
-    Appends the letter to used_letters if it doesn't occur
 
-    Args:
-    list: The list of already used letters
-    str: The letter to append
-
-    Returns:
-    list: The updated list of already used letters
-    '''
-
+    now_used = ""
 
     for i in password:
-        now_used = letter
-        if i != letter:
-            pass
-        else:
+        if i == letter:
             now_used = ""
             break
+        else:
+            now_used = letter
+
     if now_used != "":
-        used_letters.append(now_used)
+        for j in used_letters:
+            if j != letter:
+                now_used = letter
+            else:
+                print("You've already used this letter.")
+                now_used = ""
+                break
+
+    if now_used != "":
+        return now_used + " "
+    else:
+        return ""
 
 # update function test
 # it will update used_letter directly, it has no return value.
 # if the letter is equal to one letter from password, it does not update used_letters list and brake.
+
+"""
+test for update correction
+password = "Budapest"
+print(update("abc", "g"))
+"""
+
+
 
 """
 password = "BUDAPEST"
@@ -177,6 +186,20 @@ def get_input():
 def main():
     pass
 
+    # used_letters.append(update())
+    hashed = ""
+
+
+    for i in word:
+        if i == " ":
+            hashed += "  "
+        else:
+            hashed += "_ "
+    return hashed
+
+'''
+test for get hashed
 
 if __name__ == '__main__':
     main()
+'''
