@@ -1,8 +1,7 @@
-import os
 
-def draw_screen(hashed_password, used_letters, lives):
-    os.system('clear')
+#start from here
 
+def screen(lives):
     if lives == 0:
         print("     ___")
         print("    /   |" + "   PASSWORD:      " + hashed_password)
@@ -81,3 +80,12 @@ def draw_screen(hashed_password, used_letters, lives):
         print("")
         print("" + "            LIVES: " + str(lives))
         print("")
+
+
+hashed_password = "test"
+used_letters = "abcd"
+
+
+
+for i in range(11):
+    print(screen(i))

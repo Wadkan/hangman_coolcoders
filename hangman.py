@@ -203,9 +203,13 @@ def get_input():
     guess = guess.lower()
     right_characters = "qwertzuioplkjhgfdsayxcvbnm"
 
-    for check in right_characters:
-        if check == guess:
-            return check
+    if len(guess) > 1:
+        pass
+    else:
+        for check in right_characters:
+            if check == guess:
+                return check
+
     print(29 * " " + "!!! WRONG CHAR! USE ONLY ONE OR MORE LETTER(s) !!!")
 
 # test for get_input
@@ -245,21 +249,21 @@ def main():
             was_wrong = " was correct!"
 
         # here: put the DRAWING -> drawing(lives, hashed_password, used_letters)
-        os.system('clear')
+        # os.system('clear')
         draw_screen(hashed_password, used_letters, lives)    # drawing
-
-        # old print("PASSWORD:     " + hashed_password + " LIVES: " + str(lives) + "  USED LETTERS: " + used_letters)
         letter = str(get_input())
 
         hashed_password = uncover(hashed_password, password, letter)
         used_letters += update(used_letters, letter)
 
         if is_win(hashed_password, password) == True:
+            draw_screen(hashed_password, used_letters, lives)  # drawing
             width = int((26 - len(hashed_password)) // 2)
             print(26 * "-" + "\n----You are the winner!---\n" + 26 * "-")
             print(width * "-" + hashed_password.upper() + width * "-" + "\n--------------------------")
             run = "no"
         elif is_loose() == True:
+            draw_screen(hashed_password, used_letters, lives)  # drawing
             run = "no"
             width = int(26 - len(password)) // 2
             print(26 * "-" + "\n" + "------> You loose! <------\n------ The word was: -----")
