@@ -228,7 +228,7 @@ def main():
     used_letters = ""
 
     run = "yes"
-    lives = 6
+    lives = 9
     password = pick_capital()
     hashed_password = get_hashed(password)
     letter = ""
@@ -246,13 +246,7 @@ def main():
 
         # here: put the DRAWING -> drawing(lives, hashed_password, used_letters)
         os.system('clear')
-
-        print("     ___")
-        print("    /   |" + "   PASSWORD:      " + hashed_password)
-        print("   |    O" + "   USED LETTERS:  " + used_letters)
-        print("   |   /|\  " + letter + was_wrong)
-        print("   |   / \ " + "    LIVES: " + str(lives))
-        print("___|___")
+        draw_screen(hashed_password, used_letters, lives)    # drawing
 
         # old print("PASSWORD:     " + hashed_password + " LIVES: " + str(lives) + "  USED LETTERS: " + used_letters)
         letter = str(get_input())
