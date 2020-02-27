@@ -1,4 +1,5 @@
 import random
+import os
 
 
 
@@ -111,6 +112,8 @@ def update(used_letters, letter):
         return now_used + " "
     else:
         return ""
+
+
 
 # update function test
 # it will update used_letter directly, it has no return value.
@@ -242,6 +245,7 @@ def main():
             was_wrong = " was correct!"
 
         # here: put the DRAWING -> drawing(lives, hashed_password, used_letters)
+        os.system('clear')
 
         print("     ___")
         print("    /   |" + "   PASSWORD:      " + hashed_password)
