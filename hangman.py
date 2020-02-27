@@ -1,6 +1,6 @@
 import random
 import os
-
+from hangman_drawing import *
 
 
 # if used_letters does not exist, and runs on an error, the program declarates it.
